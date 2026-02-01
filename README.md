@@ -80,6 +80,7 @@ pip install -e .
 > Set your API key in `~/.nanobot/config.json`.
 > Get API keys: [OpenRouter](https://openrouter.ai/keys) (LLM) · [Brave Search](https://brave.com/search/api/) (optional, for web search)
 > You can also change the model to `minimax/minimax-m2` for lower cost.
+> **Using Ollama or custom endpoint?** See the [Configuration section](#️-configuration) below for details.
 
 **1. Initialize**
 
@@ -195,6 +196,36 @@ nanobot gateway
 </details>
 
 ## ⚙️ Configuration
+
+<details>
+<summary><b>Custom Endpoint (e.g., Ollama, Local LLM)</b></summary>
+
+To use a custom LLM endpoint like Ollama or any OpenAI-compatible API, add the `apiBase` field to your provider configuration:
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model": "llama3.2"
+    }
+  },
+  "providers": {
+    "openrouter": {
+      "apiKey": "dummy-key",
+      "apiBase": "http://192.168.1.100:11434/v1"
+    }
+  }
+}
+```
+
+**Notes:**
+- Replace `http://192.168.1.100:11434/v1` with your actual endpoint URL
+- For Ollama, the default endpoint is `http://localhost:11434/v1`
+- Set `model` to the model name available on your endpoint (e.g., `llama3.2`, `mistral`, etc.)
+- The `apiKey` field is required but can be set to any dummy value if your endpoint doesn't require authentication
+- The endpoint must be OpenAI-compatible (support `/v1/chat/completions`)
+
+</details>
 
 <details>
 <summary><b>Full config example</b></summary>
